@@ -1,0 +1,52 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyfabricconnect"
+version = "0.1.0"
+description = "Unified Python connectivity toolkit for Microsoft Fabric"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+
+authors = [
+    { name = "Eduardo Osorio Venegas" }
+]
+
+keywords = [
+    "microsoft fabric",
+    "fabric",
+    "jdbc",
+    "odbc",
+    "sqlalchemy",
+    "spark",
+    "warehouse",
+    "lakehouse",
+    "data engineering"
+]
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: Apache Software License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Operating System :: OS Independent"
+]
+
+dependencies = [
+    "pandas>=2.0.0",
+    "pyodbc>=5.0.0",
+    "sqlalchemy>=2.0.0",
+    "azure-identity>=1.15.0"
+]
+
+[project.urls]
+Homepage = "https://github.com/eosovngas/pyfabricconnect"
+Repository = "https://github.com/eosovngas/pyfabricconnect"
+Issues = "https://github.com/eosovngas/pyfabricconnect/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
