@@ -5,45 +5,29 @@ from pyfabricconnect.connectors.sqlalchemy import SQLAlchemyConnector
 
 class FabricClient:
 
-    def __init__(
-        self,
-        server: str,
-        database: str,
-        auth,
-        spark=None
-    ):
+    def __init__(self, server: str, database: str, auth, spark=None):
         self.server = server
         self.database = database
         self.auth = auth
         self.spark = spark
 
     def __repr__(self):
-        return (
-            f"FabricClient(server='{self.server}', "
-            f"database='{self.database}')"
-        )
+        return f"FabricClient(server='{self.server}', " f"database='{self.database}')"
 
     def query_spark(self, sql: str):
         connector = JDBCConnector(
-            spark=self.spark,
-            server=self.server,
-            database=self.database,
-            auth=self.auth
+            spark=self.spark, server=self.server, database=self.database, auth=self.auth
         )
         return connector.query(sql)
 
     def query_pandas(self, sql: str):
         connector = ODBCConnector(
-            server=self.server,
-            database=self.database,
-            auth=self.auth
+            server=self.server, database=self.database, auth=self.auth
         )
         return connector.query(sql)
 
     def engine(self):
         connector = SQLAlchemyConnector(
-            server=self.server,
-            database=self.database,
-            auth=self.auth
+            server=self.server, database=self.database, auth=self.auth
         )
         return connector.create_engine()

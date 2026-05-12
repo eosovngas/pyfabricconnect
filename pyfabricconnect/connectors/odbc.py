@@ -11,7 +11,7 @@ class ODBCConnector:
         server: str,
         database: str,
         auth,
-        driver: str = "ODBC Driver 18 for SQL Server"
+        driver: str = "ODBC Driver 18 for SQL Server",
     ):
         self.server = server
         self.database = database
@@ -37,11 +37,7 @@ class ODBCConnector:
                 return pd.read_sql(sql, conn)
 
         except pyodbc.Error as e:
-            raise ConnectionError(
-                f"ODBC connection or query failed: {str(e)}"
-            ) from e
+            raise ConnectionError(f"ODBC connection or query failed: {str(e)}") from e
 
         except Exception as e:
-            raise QueryExecutionError(
-                f"Pandas query execution failed: {str(e)}"
-            ) from e
+            raise QueryExecutionError(f"Pandas query execution failed: {str(e)}") from e

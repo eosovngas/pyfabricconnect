@@ -12,7 +12,7 @@ class SQLAlchemyConnector:
         server: str,
         database: str,
         auth,
-        driver: str = "ODBC Driver 18 for SQL Server"
+        driver: str = "ODBC Driver 18 for SQL Server",
     ):
         self.server = server
         self.database = database
@@ -31,16 +31,14 @@ class SQLAlchemyConnector:
                     "driver": self.driver,
                     "Authentication": "ActiveDirectoryServicePrincipal",
                     "Encrypt": "yes",
-                    "TrustServerCertificate": "no"
-                }
+                    "TrustServerCertificate": "no",
+                },
             )
 
             return create_engine(connection_url)
 
         except SQLAlchemyError as e:
-            raise ConnectionError(
-                f"SQLAlchemy engine creation failed: {str(e)}"
-            ) from e
+            raise ConnectionError(f"SQLAlchemy engine creation failed: {str(e)}") from e
 
         except Exception as e:
             raise ConnectionError(
