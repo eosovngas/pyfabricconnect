@@ -36,8 +36,26 @@ PyFabricConnect simplifies secure connectivity to Microsoft Fabric using modern 
 
 # Installation
 
+## Base Installation
+
 ```bash
 pip install pyfabricconnect
+```
+
+## Spark Support
+
+Microsoft Fabric environments already include PySpark and an active Spark runtime.
+
+For local Spark environments, install Spark support with:
+
+```bash
+pip install pyfabricconnect[spark]
+```
+
+## Development Environment
+
+```bash
+pip install pyfabricconnect[dev]
 ```
 
 ---
@@ -73,7 +91,29 @@ print(df.head())
 
 # Spark Example
 
+The `query_spark()` method requires an active SparkSession.
+
 ```python
+from pyspark.sql import SparkSession
+
+from pyfabricconnect import FabricClient
+from pyfabricconnect.auth import ServicePrincipalAuth
+
+spark = SparkSession.builder.getOrCreate()
+
+auth = ServicePrincipalAuth(
+    tenant_id="YOUR_TENANT_ID",
+    client_id="YOUR_CLIENT_ID",
+    client_secret="YOUR_CLIENT_SECRET"
+)
+
+client = FabricClient(
+    server="YOUR_SERVER",
+    database="WH_PYFABRICCONNECT",
+    auth=auth,
+    spark=spark
+)
+
 spark_df = client.query_spark("""
 SELECT * FROM dbo.qlbacan
 """)
@@ -88,6 +128,19 @@ spark_df.show()
 ```python
 engine = client.engine()
 ```
+
+---
+
+# Supported Environments
+
+PyFabricConnect is designed to work with:
+
+- Microsoft Fabric Notebooks
+- Azure Synapse Analytics
+- Databricks
+- Local PySpark environments
+- Python applications
+- Data engineering pipelines
 
 ---
 
@@ -147,16 +200,6 @@ Contributions, issues, and feature requests are welcome.
 
 # Support the Project
 
-If PyFabricConnect helps your projects or organization, consider supporting development in the future through:
-
-- GitHub Sponsors
-- PayPal
-- Buy Me a Coffee
-
----
-
-# Support the Project
-
 If PyFabricConnect helps your projects or organization, consider supporting development.
 
 Your support helps maintain:
@@ -168,7 +211,9 @@ Your support helps maintain:
 - Community support
 
 ## Donations
+
 - [PayPal Donations](https://paypal.me/eosovngas)
+
 ---
 
 # License

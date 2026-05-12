@@ -3,13 +3,7 @@ from pyfabricconnect.core.exceptions import QueryExecutionError
 
 class JDBCConnector:
 
-    def __init__(
-        self,
-        spark,
-        server: str,
-        database: str,
-        auth
-    ):
+    def __init__(self, spark, server: str, database: str, auth):
         self.spark = spark
         self.server = server
         self.database = database
@@ -34,14 +28,9 @@ class JDBCConnector:
                 .option("query", sql)
                 .option("user", self.auth.client_id)
                 .option("password", self.auth.client_secret)
-                .option(
-                    "driver",
-                    "com.microsoft.sqlserver.jdbc.SQLServerDriver"
-                )
+                .option("driver", "com.microsoft.sqlserver.jdbc.SQLServerDriver")
                 .load()
             )
 
         except Exception as e:
-            raise QueryExecutionError(
-                f"Spark JDBC query failed: {str(e)}"
-            ) from e
+            raise QueryExecutionError(f"Spark JDBC query failed: {str(e)}") from e
